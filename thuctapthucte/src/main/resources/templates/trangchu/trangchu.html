@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHÒNG KHÁM ĐA KHOA THIÊN PHÚC</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f6fbff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 20px 0 20px;
+            text-align: center;
+        }
+        .title {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #222;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        .reasons {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .reason-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            padding: 32px 24px;
+            width: 290px;
+            min-height: 270px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow 0.2s;
+        }
+        .reason-card:hover {
+            box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+        }
+        .reason-icon {
+            font-size: 2.8rem;
+            color: #3578e5;
+            background: #eaf1ff;
+            border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+        .reason-title {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #222;
+        }
+        .reason-desc {
+            font-size: 1rem;
+            color: #444;
+        }
+        .btn-book {
+            background: #2563eb;
+            color: #fff;
+            font-size: 1.15rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 38px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        .btn-book:hover {
+            background: #1746a2;
+        }
+        /* Social sidebar */
+        .social-sidebar {
+            position: fixed;
+            top: 180px;
+            left: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            z-index: 100;
+        }
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            transition: background 0.2s;
+            font-size: 1.7rem;
+        }
+        .social-icon.messenger { color: #0084ff; }
+        .social-icon.zalo { color: #0180c7; }
+        .social-icon.facebook { color: #1877f3; }
+        .social-icon.youtube { color: #ff0000; }
+        .social-icon.phone { color: #ff6600; }
+        .social-icon:hover { background: #f0f4fa; }
+        @media (max-width: 1100px) {
+            .reasons { flex-direction: column; align-items: center; }
+        }
+        @media (max-width: 600px) {
+            .container { padding: 20px 5px 0 5px; }
+            .reason-card { width: 95vw; min-width: unset; }
+            .social-sidebar { left: 6px; top: 120px; }
+        }
+        .topbar {
+            background: #1746a2;
+            color: #fff;
+            font-size: 0.98rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 40px 4px 20px;
+        }
+        .topbar-left { letter-spacing: 0.01em; }
+        .topbar-right { display: flex; gap: 10px; }
+        .topbar-icon { display: flex; align-items: center; margin-left: 4px; }
+        .topbar-icon svg { display: block; }
+        .header {
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 40px 10px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .header-left { display: flex; align-items: center; }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo svg { margin-right: 10px; }
+        .clinic-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2563eb;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .clinic-name small {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #1746a2;
+            margin-top: -2px;
+            letter-spacing: 0.01em;
+        }
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .nav-menu a {
+            color: #222;
+            text-decoration: none;
+            font-size: 1.08rem;
+            font-weight: 500;
+            padding: 8px 10px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .nav-menu a:hover {
+            background: #eaf1ff;
+            color: #2563eb;
+        }
+        .dropdown {
+            position: relative;
+        }
+        .arrow { font-size: 0.8em; margin-left: 2px; }
+        .header-right { display: flex; align-items: center; gap: 18px; }
+        .btn-header-book {
+            background: #2563eb;
+            color: #fff;
+            font-size: 1.08rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-header-book:hover { background: #1746a2; }
+        .lang-select {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #eaf1ff;
+            border-radius: 6px;
+            padding: 4px 10px 4px 4px;
+            font-size: 1rem;
+            color: #2563eb;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .lang-select svg { margin-right: 2px; }
+        @media (max-width: 900px) {
+            .header, .topbar { flex-direction: column; align-items: flex-start; padding: 8px 10px; }
+            .nav-menu { flex-wrap: wrap; gap: 8px; }
+            .header-right { gap: 8px; }
+        }
+        @media (max-width: 600px) {
+            .header, .topbar { padding: 6px 2vw; }
+            .logo svg { width: 36px; height: 36px; }
+            .clinic-name { font-size: 1rem; }
+            .nav-menu a { font-size: 0.98rem; padding: 6px 6px; }
+            .btn-header-book { padding: 8px 10px; font-size: 0.98rem; }
+            .lang-select { font-size: 0.95rem; }
+        }
+        /* Banner/Slider */
+        .banner-slider {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto 18px auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f6fbff;
+            min-height: 420px;
+        }
+        .banner-content {
+            position: relative;
+            width: 80vw;
+            max-width: 1100px;
+            min-height: 400px;
+            background: #eaf1ff;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+        }
+        .banner-img {
+            width: 45%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 18px 0 0 18px;
+        }
+        .banner-info {
+            flex: 1;
+            padding: 36px 32px 36px 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .banner-logo {
+            width: 120px;
+            margin-bottom: 10px;
+        }
+        .banner-title {
+            font-size: 2.1rem;
+            font-weight: bold;
+            color: #1746a2;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        .banner-sub {
+            font-size: 1.2rem;
+            color: #2563eb;
+            font-weight: 500;
+        }
+        .banner-desc {
+            font-size: 1.25rem;
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        .banner-btn {
+            background: #e60023;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 32px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .banner-btn:hover { background: #b8001a; }
+        .banner-hotline {
+            font-size: 1.1rem;
+            color: #e60023;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            color: #2563eb;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            cursor: pointer;
+            z-index: 2;
+            transition: background 0.2s;
+        }
+        .slider-arrow.left { left: 10px; }
+        .slider-arrow.right { right: 10px; }
+        .slider-arrow:hover { background: #eaf1ff; }
+        .slider-dots {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d1d5db;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .dot.active { background: #2563eb; }
+        /* Nút nổi bật dưới banner */
+        .main-actions {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin: 32px 0 18px 0;
+        }
+        .main-btn {
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            padding: 18px 44px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .main-btn-blue {
+            background: #2563eb;
+            color: #fff;
+        }
+        .main-btn-blue:hover { background: #1746a2; }
+        .main-btn-pink {
+            background: #ff4fa3;
+            color: #fff;
+        }
+        .main-btn-pink:hover { background: #d81b60; }
+        @media (max-width: 1100px) {
+            .banner-content { flex-direction: column; min-height: 320px; }
+            .banner-img { width: 100%; height: 180px; border-radius: 18px 18px 0 0; }
+            .banner-info { padding: 18px 12px; align-items: center; }
+            .main-actions { flex-direction: column; gap: 18px; }
+        }
+        @media (max-width: 600px) {
+            .banner-content { width: 98vw; min-height: 220px; }
+            .banner-logo { width: 80px; }
+            .banner-title { font-size: 1.1rem; }
+            .main-btn { font-size: 1rem; padding: 12px 10vw; }
+        }
+        .footer {
+            background: #036fa7;
+            color: #fff;
+            padding: 48px 0 0 0;
+            font-size: 1.05rem;
+            margin-top: 48px;
+        }
+        .footer-main {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #3bb6e0;
+        }
+        .footer-col {
+            flex: 1 1 220px;
+            margin: 0 18px 24px 18px;
+            min-width: 220px;
+        }
+        .footer-logo-img {
+            margin-bottom: 8px;
+        }
+        .footer-clinic-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .footer-clinic-name small {
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: #b3e0ff;
+        }
+        .footer-contact {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #3bb6e0;
+            margin-bottom: 10px;
+        }
+        .footer-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-list li {
+            margin-bottom: 7px;
+        }
+        .footer-list a {
+            color: #fff;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .footer-list a:hover {
+            color: #ffde59;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .footer-socials a { display: flex; align-items: center; }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 18px 0 18px 0;
+            font-size: 0.98rem;
+            flex-wrap: wrap;
+        }
+        .footer-cert img {
+            margin-right: 18px;
+            vertical-align: middle;
+        }
+        .footer-copyright {
+            color: #eaf1ff;
+            font-size: 1rem;
+            text-align: right;
+        }
+        @media (max-width: 900px) {
+            .footer-main { flex-direction: column; align-items: flex-start; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .footer-copyright { text-align: left; }
+        }
+        .intro-section {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin: 48px auto 32px auto;
+            max-width: 1200px;
+            flex-wrap: wrap;
+        }
+        .intro-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+            padding: 32px 28px 32px 28px;
+            width: 340px;
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: box-shadow 0.2s;
+        }
+        .intro-card:hover {
+            box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+        }
+        .intro-icon {
+            font-size: 2.1rem;
+            margin-bottom: 12px;
+        }
+        .intro-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 8px;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+        .intro-divider {
+            width: 100%;
+            border: none;
+            border-top: 2px solid #f0f4fa;
+            margin: 10px 0 18px 0;
+        }
+        .intro-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            color: #444;
+            font-size: 1.08rem;
+        }
+        .intro-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .intro-list-icon {
+            margin-right: 8px;
+            font-size: 1.15em;
+        }
+        .intro-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .intro-btn {
+            background: #2563eb;
+            color: #fff;
+            font-size: 1.15rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            padding: 16px 0;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .intro-btn:hover {
+            background: #1746a2;
+        }
+        .intro-btn-icon {
+            font-size: 1.25em;
+            margin-right: 4px;
+        }
+        @media (max-width: 1100px) {
+            .intro-section { flex-direction: column; align-items: center; gap: 18px; }
+            .intro-card { width: 95vw; min-width: unset; }
+        }
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 110%;
+            left: 0;
+            min-width: 240px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+            z-index: 1000;
+            padding: 10px 0 4px 0;
+            font-size: 1.08rem;
+            animation: fadeIn 0.18s;
+        }
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 22px;
+            color: #222;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.18s, color 0.18s;
+            font-weight: 400;
+        }
+        .dropdown-menu a:hover {
+            background: #f0f4fa;
+            color: #2563eb;
+        }
+        .dropdown-menu .dropdown-viewall {
+            color: #2563eb;
+            font-weight: 600;
+            margin-top: 6px;
+            border-top: 1px solid #eaf1ff;
+            background: none;
+        }
+        .dropdown-menu .dropdown-viewall:hover {
+            background: #eaf1ff;
+            color: #1746a2;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .specialty-section {
+            background: linear-gradient(120deg, #eaf1ff 60%, #f6fbff 100%);
+            padding: 56px 0 32px 0;
+            margin-top: 48px;
+        }
+        .specialty-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .specialty-header h2 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 10px;
+        }
+        .specialty-header p {
+            font-size: 1.18rem;
+            color: #4b5563;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        .specialty-list {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+        .specialty-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            width: 220px;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            transition: box-shadow 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .specialty-card:hover {
+            box-shadow: 0 6px 24px rgba(37,99,235,0.13);
+            transform: translateY(-6px) scale(1.03);
+        }
+        .specialty-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 18px 18px 0 0;
+        }
+        .specialty-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #222;
+            padding: 18px 0 18px 0;
+            text-align: center;
+            flex: 1;
+        }
+        .specialty-viewall {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .specialty-btn {
+            display: inline-block;
+            background: #fff;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+            border-radius: 10px;
+            font-size: 1.18rem;
+            font-weight: 600;
+            padding: 14px 38px;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        }
+        .specialty-btn:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        .specialty-arrow {
+            font-size: 1.2em;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        @media (max-width: 1100px) {
+            .specialty-list { gap: 14px; }
+            .specialty-card { width: 44vw; min-width: 180px; }
+        }
+        @media (max-width: 700px) {
+            .specialty-list { flex-direction: column; align-items: center; }
+            .specialty-card { width: 95vw; }
+        }
+        .tech-section {
+            background: #f6fbff;
+            padding: 56px 0 32px 0;
+        }
+        .tech-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .tech-header h2 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #14213d;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .tech-header p {
+            font-size: 1.18rem;
+            color: #2563eb;
+            margin: 0 auto;
+            max-width: 700px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 36px 36px;
+            max-width: 1400px;
+            margin: 0 auto;
+            justify-items: center;
+        }
+        .tech-card {
+            background: linear-gradient(120deg, #3559e0 60%, #2563eb 100%);
+            border-radius: 20px;
+            box-shadow: 0 2px 16px rgba(37,99,235,0.10);
+            padding: 38px 28px 32px 28px;
+            min-width: 320px;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .tech-card:hover {
+            box-shadow: 0 8px 32px rgba(37,99,235,0.18);
+            transform: translateY(-6px) scale(1.03);
+        }
+        .tech-icon {
+            margin-bottom: 18px;
+        }
+        .tech-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #ffe066;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        .tech-desc {
+            font-size: 1.08rem;
+            color: #fff;
+            text-align: center;
+            font-weight: 400;
+        }
+        @media (max-width: 1100px) {
+            .tech-list {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px 18px;
+            }
+            .tech-card { min-width: 220px; }
+        }
+        @media (max-width: 700px) {
+            .tech-list {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            .tech-card { min-width: 0; width: 95vw; }
+        }
+        .service-section {
+            background: #fff;
+            padding: 56px 0 32px 0;
+        }
+        .service-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .service-sub {
+            color: #2563eb;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .service-header h2 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #14213d;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .service-header p {
+            font-size: 1.18rem;
+            color: #444;
+            margin: 0 auto;
+            max-width: 700px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        .service-list {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+        }
+        .service-card {
+            background: #f8fafc;
+            border-radius: 20px;
+            box-shadow: 0 2px 16px rgba(37,99,235,0.07);
+            padding: 32px 24px 28px 24px;
+            width: 370px;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .service-card:hover {
+            box-shadow: 0 8px 32px rgba(37,99,235,0.13);
+            transform: translateY(-6px) scale(1.03);
+        }
+        .service-icon {
+            background: #eaf1ff;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+        .service-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 18px;
+        }
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 8px;
+        }
+        .service-desc {
+            font-size: 1.08rem;
+            color: #444;
+            font-weight: 400;
+            margin-bottom: 18px;
+        }
+        .service-more {
+            color: #2563eb;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.08rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.18s;
+        }
+        .service-more:hover {
+            color: #1746a2;
+            text-decoration: underline;
+        }
+        .service-arrow {
+            font-size: 1.15em;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+        @media (max-width: 1100px) {
+            .service-list { flex-direction: column; align-items: center; gap: 18px; }
+            .service-card { width: 95vw; min-width: unset; }
+        }
+        .equipment-section {
+            background: #fff;
+            padding: 56px 0 32px 0;
+        }
+        .equipment-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .equipment-info {
+            flex: 1 1 480px;
+            min-width: 320px;
+        }
+        .equipment-info h2 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #14213d;
+            margin-bottom: 32px;
+            letter-spacing: 1px;
+        }
+        .equipment-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .equipment-list li {
+            font-size: 1.18rem;
+            color: #14213d;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.6;
+        }
+        .equipment-icon {
+            color: #22c55e;
+            font-size: 1.5em;
+            margin-right: 12px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        .equipment-media {
+            flex: 1 1 420px;
+            min-width: 320px;
+            display: flex;
+            justify-content: center;
+        }
+        .equipment-imgbox {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 4px 32px rgba(37,99,235,0.10);
+            width: 480px;
+            max-width: 90vw;
+            aspect-ratio: 4/3;
+            background: #eaf1ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .equipment-imgbox img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .equipment-play {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            z-index: 2;
+        }
+        .equipment-play svg {
+            margin-bottom: 4px;
+            filter: drop-shadow(0 2px 8px rgba(37,99,235,0.10));
+        }
+        .equipment-play span {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.08rem;
+            text-shadow: 0 2px 8px rgba(37,99,235,0.18);
+            background: rgba(37,99,235,0.7);
+            border-radius: 8px;
+            padding: 2px 14px;
+            margin-top: 2px;
+        }
+        @media (max-width: 1100px) {
+            .equipment-container { flex-direction: column; gap: 24px; }
+            .equipment-imgbox { width: 98vw; }
+        }
+        .partner-section {
+            background: #fff;
+            padding: 56px 0 32px 0;
+        }
+        .partner-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .partner-sub {
+            color: #2563eb;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .partner-header h2 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #14213d;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .partner-header p {
+            font-size: 1.18rem;
+            color: #444;
+            margin: 0 auto;
+            max-width: 700px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        .partner-main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            max-width: 1100px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .partner-logo {
+            flex: 1 1 320px;
+            min-width: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .partner-logo img {
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+        .partner-info {
+            flex: 1 1 380px;
+            min-width: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .partner-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #14213d;
+            margin-bottom: 10px;
+        }
+        .partner-desc {
+            font-size: 1.13rem;
+            color: #555;
+            margin-bottom: 18px;
+            max-width: 420px;
+        }
+        .partner-more {
+            color: #2563eb;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.08rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.18s;
+        }
+        .partner-more:hover {
+            color: #1746a2;
+            text-decoration: underline;
+        }
+        .partner-arrow {
+            font-size: 1.15em;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+        @media (max-width: 900px) {
+            .partner-main { flex-direction: column; gap: 18px; }
+            .partner-logo img { max-width: 220px; }
+            .partner-info { align-items: center; text-align: center; }
+            .partner-desc { max-width: 100%; }
+        }
+        .news-section {
+            background: #fafcff;
+            padding: 56px 0 32px 0;
+        }
+        .news-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .news-sub {
+            color: #2563eb;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .news-header h2 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #14213d;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .news-header p {
+            font-size: 1.18rem;
+            color: #444;
+            margin: 0 auto;
+            max-width: 700px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        .news-list {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+        }
+        .news-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 2px 16px rgba(37,99,235,0.07);
+            width: 390px;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: box-shadow 0.2s, transform 0.2s;
+            overflow: hidden;
+        }
+        .news-card:hover {
+            box-shadow: 0 8px 32px rgba(37,99,235,0.13);
+            transform: translateY(-6px) scale(1.03);
+        }
+        .news-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 18px 18px 0 0;
+            margin-bottom: 0;
+        }
+        .news-content {
+            padding: 24px 22px 18px 22px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            width: 100%;
+        }
+        .news-title {
+            font-size: 1.18rem;
+            font-weight: 800;
+            color: #14213d;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            line-height: 1.3;
+        }
+        .news-desc {
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 18px;
+            font-weight: 400;
+            min-height: 48px;
+        }
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            color: #888;
+            margin-top: auto;
+        }
+        .news-date {
+            color: #888;
+            font-size: 1rem;
+        }
+        .news-more {
+            color: #2563eb;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.08rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.18s;
+        }
+        .news-more:hover {
+            color: #1746a2;
+            text-decoration: underline;
+        }
+        .news-arrow {
+            font-size: 1.15em;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+        @media (max-width: 1100px) {
+            .news-list { flex-direction: column; align-items: center; gap: 18px; }
+            .news-card { width: 95vw; min-width: unset; }
+        }
+        .doctor-section {
+            background: #fff;
+            padding: 56px 0 32px 0;
+        }
+        .doctor-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .doctor-sub {
+            color: #2563eb;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .doctor-header h2 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #14213d;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .doctor-header p {
+            font-size: 1.18rem;
+            color: #444;
+            margin: 0 auto;
+            max-width: 700px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        .doctor-list {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+        }
+        .doctor-card {
+            background: #f8fafc;
+            border-radius: 20px;
+            box-shadow: 0 2px 16px rgba(37,99,235,0.07);
+            padding: 0 0 28px 0;
+            width: 340px;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow 0.2s, transform 0.2s;
+            overflow: hidden;
+        }
+        .doctor-card:hover {
+            box-shadow: 0 8px 32px rgba(37,99,235,0.13);
+            transform: translateY(-6px) scale(1.03);
+        }
+        .doctor-img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+            margin-bottom: 0;
+            display: block;
+        }
+        .doctor-name {
+            font-size: 1.18rem;
+            font-weight: 800;
+            color: #14213d;
+            margin: 18px 0 4px 0;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .doctor-specialty {
+            font-size: 1.08rem;
+            color: #2563eb;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .doctor-more {
+            color: #2563eb;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.08rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.18s;
+        }
+        .doctor-more:hover {
+            color: #1746a2;
+            text-decoration: underline;
+        }
+        .doctor-arrow {
+            font-size: 1.15em;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+        .doctor-viewall {
+            display: flex;
+            justify-content: center;
+            margin-top: 32px;
+        }
+        .doctor-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #fff;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+            border-radius: 10px;
+            font-size: 1.18rem;
+            font-weight: 600;
+            padding: 14px 38px;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        }
+        .doctor-btn:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        @media (max-width: 1100px) {
+            .doctor-list { flex-direction: column; align-items: center; gap: 18px; }
+            .doctor-card { width: 95vw; min-width: unset; }
+        }
+        .booking-section {
+            background: #f1f6fb;
+            padding: 56px 0 32px 0;
+        }
+        .booking-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .booking-header h2 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #14213d;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .booking-header p {
+            font-size: 1.18rem;
+            color: #444;
+            margin: 0 auto;
+            max-width: 700px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        .booking-main {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .booking-info {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 16px rgba(37,99,235,0.07);
+            padding: 32px 32px 24px 32px;
+            min-width: 320px;
+            max-width: 400px;
+            flex: 1 1 340px;
+            font-size: 1.13rem;
+            color: #222;
+            margin-bottom: 18px;
+        }
+        .booking-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .booking-info-row {
+            margin-bottom: 18px;
+        }
+        .booking-info-icon {
+            font-size: 1.25em;
+            color: #2563eb;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+        .booking-info-label {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .booking-info-value {
+            color: #222;
+            font-weight: 400;
+        }
+        .booking-form {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 16px rgba(37,99,235,0.07);
+            padding: 32px 32px 24px 32px;
+            min-width: 320px;
+            max-width: 700px;
+            flex: 2 1 480px;
+            font-size: 1.13rem;
+            color: #222;
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+        .booking-form h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .booking-form-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 18px;
+        }
+        .booking-form-group {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .booking-form-group label {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #222;
+        }
+        .booking-form-group input,
+        .booking-form-group select,
+        .booking-form-group textarea {
+            padding: 12px 14px;
+            border: 1px solid #e3e8ee;
+            border-radius: 8px;
+            font-size: 1.08rem;
+            font-family: inherit;
+            background: #f8fafc;
+            color: #222;
+            outline: none;
+            transition: border 0.18s;
+            margin-bottom: 0;
+        }
+        .booking-form-group input:focus,
+        .booking-form-group select:focus,
+        .booking-form-group textarea:focus {
+            border: 1.5px solid #2563eb;
+            background: #fff;
+        }
+        .booking-form-group textarea {
+            resize: vertical;
+            min-height: 48px;
+            max-height: 120px;
+        }
+        .booking-btn {
+            background: #003fae;
+            color: #fff;
+            font-size: 1.18rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            padding: 16px 0;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .booking-btn:hover {
+            background: #2563eb;
+        }
+        .booking-note {
+            font-size: 0.98rem;
+            color: #888;
+            margin-top: 18px;
+            text-align: left;
+        }
+        @media (max-width: 1100px) {
+            .booking-main { flex-direction: column; gap: 18px; }
+            .booking-info, .booking-form { max-width: 98vw; }
+        }
+    </style>
+    <!-- Dùng icon SVG inline để không cần thư viện ngoài -->
+</head>
+<body>
+    <div class="social-sidebar">
+        <div class="social-icon messenger" title="Messenger">
+            <!-- Messenger SVG -->
+            <svg width="28" height="28" viewBox="0 0 32 32"><circle fill="#0084ff" cx="16" cy="16" r="16"/><path fill="#fff" d="M7 21l5.6-6.1c.4-.4 1-.5 1.5-.2l3.1 2.1c.2.1.5.1.7-.1l5.1-5.2c.3-.3.8-.1.8.3v8.1c0 .6-.5 1-1 1H8c-.4 0-.6-.5-.3-.8z"/></svg>
+        </div>
+        <div class="social-icon zalo" title="Zalo">
+            <!-- Zalo SVG -->
+            <svg width="28" height="28" viewBox="0 0 32 32"><circle fill="#0180c7" cx="16" cy="16" r="16"/><text x="8" y="22" font-size="12" fill="#fff" font-family="Arial">Zalo</text></svg>
+        </div>
+        <div class="social-icon facebook" title="Facebook">
+            <!-- Facebook SVG -->
+            <svg width="28" height="28" viewBox="0 0 32 32"><circle fill="#1877f3" cx="16" cy="16" r="16"/><path fill="#fff" d="M20.5 16H18v8h-4v-8h-2v-3h2v-2c0-2.2 1.3-3.5 3.3-3.5.9 0 1.8.1 1.8.1v2h-1c-1 0-1.2.5-1.2 1.1v1.3h2.5l-.3 3z"/></svg>
+        </div>
+        <div class="social-icon youtube" title="YouTube">
+            <!-- YouTube SVG -->
+            <svg width="28" height="28" viewBox="0 0 32 32"><circle fill="#ff0000" cx="16" cy="16" r="16"/><polygon fill="#fff" points="13,11 23,16 13,21"/></svg>
+        </div>
+        <div class="social-icon phone" title="Gọi điện">
+            <!-- Phone SVG -->
+            <svg width="28" height="28" viewBox="0 0 32 32"><circle fill="#ff6600" cx="16" cy="16" r="16"/><path fill="#fff" d="M22.6 20.9l-2.2-2.2c-.4-.4-1-.4-1.4 0l-1.1 1.1c-1.7-.9-3.1-2.3-4-4l1.1-1.1c.4-.4.4-1 0-1.4l-2.2-2.2c-.4-.4-1-.4-1.4 0l-.8.8c-.7.7-1 1.7-.7 2.7 1.2 3.5 4.1 6.4 7.6 7.6 1 .3 2-.1 2.7-.7l.8-.8c.4-.4.4-1 0-1.4z"/></svg>
+        </div>
+    </div>
+
+    <!-- HEADER PHẦN ĐẦU TRANG -->
+    <div class="topbar">
+        <div class="topbar-left">
+            Quận Ninh Kiều , Phường Hưng Lợi, TP. Cần Thơ - Thời gian làm việc (6h-20h T2-T7, Chủ nhật 6h-12h)
+        </div>
+        <div class="topbar-right">
+            <a href="#" title="Facebook" class="topbar-icon"><svg width="16" height="16" viewBox="0 0 32 32"><circle fill="#fff" cx="16" cy="16" r="16"/><path fill="#1877f3" d="M20.5 16H18v8h-4v-8h-2v-3h2v-2c0-2.2 1.3-3.5 3.3-3.5.9 0 1.8.1 1.8.1v2h-1c-1 0-1.2.5-1.2 1.1v1.3h2.5l-.3 3z"/></svg></a>
+            <a href="#" title="Email" class="topbar-icon"><svg width="16" height="16" viewBox="0 0 32 32"><circle fill="#fff" cx="16" cy="16" r="16"/><path fill="#3578e5" d="M8 12h16v8H8z"/><path fill="#fff" d="M8 12l8 6 8-6"/></svg></a>
+            <a href="#" title="Phone" class="topbar-icon"><svg width="16" height="16" viewBox="0 0 32 32"><circle fill="#fff" cx="16" cy="16" r="16"/><path fill="#ff6600" d="M22.6 20.9l-2.2-2.2c-.4-.4-1-.4-1.4 0l-1.1 1.1c-1.7-.9-3.1-2.3-4-4l1.1-1.1c.4-.4.4-1 0-1.4l-2.2-2.2c-.4-.4-1-.4-1.4 0l-.8.8c-.7.7-1 1.7-.7 2.7 1.2 3.5 4.1 6.4 7.6 7.6 1 .3 2-.1 2.7-.7l.8-.8c.4-.4.4-1 0-1.4z"/></svg></a>
+            <a href="#" title="YouTube" class="topbar-icon"><svg width="16" height="16" viewBox="0 0 32 32"><circle fill="#fff" cx="16" cy="16" r="16"/><polygon fill="#ff0000" points="13,11 23,16 13,21"/></svg></a>
+        </div>
+    </div>
+    <div class="header">
+        <div class="header-left">
+            <a href="#" class="logo">
+                <!-- Logo SVG -->
+                <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#eaf1ff"/><path d="M24 10a8 8 0 0 1 8 8c0 4.4-8 12-8 12s-8-7.6-8-12a8 8 0 0 1 8-8z" fill="#3578e5"/><circle cx="24" cy="18" r="4" fill="#fff"/></svg>
+                <span class="clinic-name">Thiên Phúc<small>PHÒNG KHÁM ĐA KHOA</small></span>
+            </a>
+        </div>
+        <nav class="nav-menu">
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Chuyên khoa <span class="arrow">▼</span></a>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Chuyên khoa <span class="arrow">▼</span></a>
+                <div class="dropdown-menu">
+                    <a href="#">Hô hấp</a>
+                    <a href="#">Tim mạch – Lão học</a>
+                    <a href="#">Tai Mũi Họng</a>
+                    <a href="#">Mắt – Mắt kính</a>
+                    <a href="#">Răng Hàm Mặt</a>
+                    <a href="#">Sản – Phụ khoa</a>
+                    <a href="#">Nội tiết – Tiểu đường</a>
+                    <a href="#">Da Liễu – Thẩm Mỹ Da</a>
+                    <a href="#" class="dropdown-viewall">Xem tất cả chuyên khoa</a>
+                </div>
+            </div>
+            <a href="#">Đội ngũ bác sĩ</a>
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Dịch vụ <span class="arrow">▼</span></a>
+                <div class="dropdown-menu">
+                    <a href="#">Khám sức khỏe tổng quát</a>
+                    <a href="#">Khám sức khỏe doanh nghiệp</a>
+                    <a href="#">Máy MRI toàn thân</a>
+                    <a href="#">Bảng giá dịch vụ</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#">Kiến thức sức khỏe <span class="arrow">▼</span></a>
+            </div>
+            <a href="#">Liên hệ</a>
+            <!--            <a href="#"></a>-->
+        </nav>
+        <div class="header-right">
+            <button class="btn-header-book">Đặt lịch khám</button>
+            <div class="lang-select">
+                <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#2563eb"/><text x="5" y="15" font-size="10" fill="#fff">VN</text></svg>
+                <span>Tiếng Việt</span>
+            </div>
+        </div>
+    </div>
+    <!-- BANNER/SLIDER -->
+    <div class="banner-slider">
+        <button class="slider-arrow left">&#8592;</button>
+        <div class="banner-content">
+            <img src="https://img.freepik.com/free-photo/happy-family-portrait_23-2149162002.jpg?w=900" alt="Banner" class="banner-img">
+            <div class="banner-info">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Ng%E1%BB%8Dc_Minh_Clinic_Logo.png" alt="Logo" class="banner-logo">
+                <div class="banner-title">VẮC XIN ZONA THẦN KINH<br><span class="banner-sub">(GIỜI LEO)</span></div>
+                <div class="banner-desc">ĐÃ CÓ Ở ĐA KHOA THIÊN PHÚC</div>
+                <button class="banner-btn">ĐĂNG KÝ TIÊM NGAY</button>
+                <div class="banner-hotline">Hotline: <b>1800.8074</b></div>
+            </div>
+        </div>
+        <button class="slider-arrow right">&#8594;</button>
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+    <!-- NÚT NỔI BẬT DƯỚI BANNER -->
+    <div class="main-actions">
+        <button class="main-btn main-btn-blue">Đội Ngũ Bác Sĩ</button>
+        <button class="main-btn main-btn-pink">Đặt lịch khám</button>
+    </div>
+    <!-- GIỚI THIỆU PHÒNG KHÁM - 3 CARD -->
+    
+    <!-- LÝ DO CHỌN CHÚNG TÔI -->
+    <div class="container">
+        <div class="title">Tại Sao Chọn Chúng Tôi</div>
+        <div class="subtitle">Lý Do Nên Chọn Phòng Khám Đa Khoa Thiên Phúc</div>
+        <div class="reasons">
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <svg width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="14" r="8" fill="#eaf1ff"/><circle cx="18" cy="14" r="5" fill="#3578e5"/><path d="M13 28l5-5 5 5-5-2z" fill="#3578e5"/></svg>
+                </div>
+                <div class="reason-title">Đội Ngũ Bác Sĩ Giàu Kinh Nghiệm</div>
+                <div class="reason-desc">Các bác sĩ của chúng tôi là các chuyên gia giàu kinh nghiệm được đào tạo tại các trường đại học y khoa hàng đầu.</div>
+            </div>
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <svg width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#eaf1ff"/><circle cx="18" cy="18" r="12" fill="#3578e5"/><rect x="17" y="10" width="2" height="9" rx="1" fill="#fff"/><rect x="17" y="17" width="7" height="2" rx="1" fill="#fff"/></svg>
+                </div>
+                <div class="reason-title">Dịch Vụ Chuyên Nghiệp</div>
+                <div class="reason-desc">Chúng tôi cam kết cung cấp dịch vụ chăm sóc chu đáo, chuyên nghiệp với phương châm lấy bệnh nhân làm trung tâm.</div>
+            </div>
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <svg width="36" height="36" viewBox="0 0 36 36"><rect x="8" y="12" width="20" height="12" rx="3" fill="#eaf1ff"/><rect x="12" y="16" width="12" height="4" rx="2" fill="#3578e5"/><circle cx="18" cy="18" r="2" fill="#fff"/></svg>
+                </div>
+                <div class="reason-title">Trang Thiết Bị Hiện Đại</div>
+                <div class="reason-desc">Chúng tôi đầu tư vào thiết bị y tế hiện đại được nhập khẩu từ Châu Âu, Mỹ và Nhật Bản.</div>
+            </div>
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <svg width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#eaf1ff"/><path d="M12 14v4a6 6 0 0 0 12 0v-4" stroke="#3578e5" stroke-width="2" fill="none"/><circle cx="12" cy="14" r="2" fill="#3578e5"/><circle cx="24" cy="14" r="2" fill="#3578e5"/></svg>
+                </div>
+                <div class="reason-title">Giá Cả Minh Bạch</div>
+                <div class="reason-desc">Giá cả của chúng tôi rõ ràng và hợp lý, không có chi phí ẩn hoặc thủ thuật không cần thiết.</div>
+            </div>
+        </div>
+        <button class="btn-book">Đặt Lịch Khám</button>
+    </div>
+    <!-- CHUYÊN KHOA SECTION -->
+    <section class="specialty-section">
+        <div class="specialty-header">
+            <h2>Chuyên Khoa</h2>
+            <p>Phòng khám đa khoa Ngọc Minh với đầy đủ các chuyên khoa, đáp ứng nhu cầu khám chữa bệnh đa dạng</p>
+        </div>
+        <div class="specialty-list">
+            <div class="specialty-card">
+                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd23?auto=format&fit=crop&w=400&q=80" alt="Hô hấp">
+                <div class="specialty-name">Hô hấp</div>
+            </div>
+            <div class="specialty-card">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Tim mạch – Lão học">
+                <div class="specialty-name">Tim mạch – Lão học</div>
+            </div>
+            <div class="specialty-card">
+                <img src="https://images.unsplash.com/photo-1511174511562-5f97f4f4e0c8?auto=format&fit=crop&w=400&q=80" alt="Tai Mũi Họng">
+                <div class="specialty-name">Tai Mũi Họng</div>
+            </div>
+            <div class="specialty-card">
+                <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="Mắt – Mắt kính">
+                <div class="specialty-name">Mắt – Mắt kính</div>
+            </div>
+            <div class="specialty-card">
+                <img src="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=400&q=80" alt="Răng Hàm Mặt">
+                <div class="specialty-name">Răng Hàm Mặt</div>
+            </div>
+            <div class="specialty-card">
+                <img src="https://images.unsplash.com/photo-1512070679279-c2f999098c01?auto=format&fit=crop&w=400&q=80" alt="Sản – Phụ khoa">
+                <div class="specialty-name">Sản – Phụ khoa</div>
+            </div>
+        </div>
+        <div class="specialty-viewall">
+            <a href="#" class="specialty-btn">Xem tất cả chuyên khoa <span class="specialty-arrow">→</span></a>
+        </div>
+    </section>
+    <!-- PHÁT HIỆN SỚM BẰNG KỸ THUẬT CAO SECTION -->
+    <section class="tech-section">
+        <div class="tech-header">
+            <h2>PHÁT HIỆN SỚM BẰNG KỸ THUẬT CAO</h2>
+            <p>VỚI HỆ THỐNG TRANG THIẾT BỊ – CƠ SỞ VẬT CHẤT HIỆN ĐẠI ĐẠT CHUẨN QUỐC TẾ</p>
+        </div>
+        <div class="tech-list">
+            <div class="tech-card">
+                <div class="tech-icon"> <!-- Shield/Cancer SVG -->
+                    <svg width="70" height="70" fill="none" viewBox="0 0 70 70"><circle cx="35" cy="35" r="32" stroke="#fff" stroke-width="3"/><path d="M35 20l10 5v7c0 8-5 15-10 17-5-2-10-9-10-17v-7l10-5z" stroke="#fff" stroke-width="2.5"/><path d="M35 32v5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="35" cy="39" r="1.8" fill="#fff"/></svg>
+                </div>
+                <div class="tech-title">Tầm soát ung thư chuyên sâu</div>
+                <div class="tech-desc">Phát hiện sớm tổn thương tiền ung thư; ung thư giai đoạn sớm; ung thư bằng hệ thống "mắt thần" hiện đại, kỹ thuật chuyên sâu trong chẩn đoán hình ảnh</div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon"> <!-- Brain SVG -->
+                    <svg width="70" height="70" fill="none" viewBox="0 0 70 70"><circle cx="35" cy="35" r="32" stroke="#fff" stroke-width="3"/><path d="M25 45c-3-2-5-6-5-10 0-7 6-13 13-13s13 6 13 13c0 4-2 8-5 10" stroke="#fff" stroke-width="2.5"/><path d="M35 22v26" stroke="#fff" stroke-width="2.5"/><circle cx="35" cy="35" r="3" fill="#fff"/></svg>
+                </div>
+                <div class="tech-title">Tầm soát nguy cơ đột quỵ.</div>
+                <div class="tech-desc">Phát hiện sớm các yếu tố nguy cơ ẩn giấu – nguyên nhân hàng đầu gây đột quỵ như bệnh lý mạch máu toàn thân (dị dạng mạch máu não, phình/ tắc động mạch chủ...)</div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon"> <!-- Breast SVG -->
+                    <svg width="70" height="70" fill="none" viewBox="0 0 70 70"><circle cx="35" cy="35" r="32" stroke="#fff" stroke-width="3"/><rect x="28" y="28" width="14" height="14" rx="7" stroke="#fff" stroke-width="2.5"/><rect x="32" y="32" width="6" height="6" rx="3" fill="#fff"/></svg>
+                </div>
+                <div class="tech-title">Tầm soát bệnh lý tuyến Vú</div>
+                <div class="tech-desc">Tầm soát và chẩn đoán sớm tổn thương tuyến vú lành tính & ung thư vú. Đặc biệt với sự hỗ trợ của MRI tích hợp AI, COIL nhũ chuyên biệt giúp phát hiện sớm tổn thương</div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon"> <!-- Vein SVG -->
+                    <svg width="70" height="70" fill="none" viewBox="0 0 70 70"><circle cx="35" cy="35" r="32" stroke="#fff" stroke-width="3"/><path d="M20 45c5-10 25-10 30 0" stroke="#fff" stroke-width="2.5"/><text x="28" y="38" font-size="18" fill="#fff">!!!</text></svg>
+                </div>
+                <div class="tech-title">Tầm soát suy giãn tĩnh mạch</div>
+                <div class="tech-desc">Phát hiện sớm các bệnh lý tĩnh mạch, suy giãn tĩnh mạch chi dưới, giúp điều trị hiệu quả và phòng ngừa biến chứng nguy hiểm.</div>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon"> <!-- Endoscopy SVG -->
+                    <svg width="70" height="70" fill="none" viewBox="0 0 70 70"><circle cx="35" cy="35" r="32" stroke="#fff" stroke-width="3"/><rect x="28" y="28" width="14" height="14" rx="7" stroke="#fff" stroke-width="2.5"/><path d="M35 35v7" stroke="#fff" stroke-width="2.5"/><circle cx="35" cy="39" r="2" fill="#fff"/></svg>
+                </div>
+                <div class="tech-title">Nội soi tiêu hóa</div>
+                <div class="tech-desc">Tầm soát, phát hiện sớm các bệnh lý tiêu hóa, ung thư đường tiêu hóa nhờ hệ thống nội soi hiện đại, hình ảnh sắc nét.</div>
+            </div>
+        </div>
+    </section>
+    <!-- DỊCH VỤ Y TẾ NGỌC MINH SECTION (CÓ 'Tìm hiểu thêm') -->
+    <section class="service-section">
+        <div class="service-header">
+            <div class="service-sub">Dịch vụ của chúng tôi</div>
+            <h2>Dịch Vụ Y Tế Ngọc Minh</h2>
+            <p>Phòng Khám Đa Khoa Ngọc Minh cung cấp đa dạng các dịch vụ y tế chất lượng cao với đội ngũ bác sĩ chuyên môn và trang thiết bị hiện đại.</p>
+        </div>
+        <div class="service-list">
+            <div class="service-card">
+                <div class="service-icon"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#eaf1ff"/><path d="M32 32l-8-8-8 8" stroke="#2563eb" stroke-width="2.5" fill="none"/><circle cx="24" cy="20" r="5" stroke="#2563eb" stroke-width="2.5" fill="none"/></svg></div>
+                <img class="service-img" src="https://img.freepik.com/free-photo/doctor-talking-patient-hospital_1150-19660.jpg?w=900" alt="Khám Tổng Quát">
+                <div class="service-title">Khám Tổng Quát</div>
+                <div class="service-desc">Gói khám sức khỏe tổng quát toàn diện và chuyên sâu, phát hiện sớm các bệnh lý tiềm ẩn.</div>
+                <a href="#" class="service-more">Tìm hiểu thêm <span class="service-arrow">→</span></a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#eaf1ff"/><rect x="14" y="22" width="20" height="4" rx="2" fill="#2563eb"/></svg></div>
+                <img class="service-img" src="https://img.freepik.com/free-photo/people-working-healthcare_23-2148823262.jpg?w=900" alt="Khám Doanh Nghiệp">
+                <div class="service-title">Khám Doanh Nghiệp</div>
+                <div class="service-desc">Khám sức khỏe định kỳ cho nhân viên doanh nghiệp theo thông tư 14/2013/TT-BYT.</div>
+                <a href="#" class="service-more">Tìm hiểu thêm <span class="service-arrow">→</span></a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#eaf1ff"/><path d="M24 14a10 10 0 1 1 0 20a10 10 0 0 1 0-20z" stroke="#2563eb" stroke-width="2.5" fill="none"/><circle cx="24" cy="24" r="4" fill="#2563eb"/></svg></div>
+                <img class="service-img" src="https://img.freepik.com/free-photo/mri-scan-machine-hospital_23-2149270082.jpg?w=900" alt="MRI Toàn Thân">
+                <div class="service-title">MRI Toàn Thân</div>
+                <div class="service-desc">Hệ thống máy chụp cộng hưởng từ hiện đại nhất, cung cấp hình ảnh chính xác nhất.</div>
+                <a href="#" class="service-more">Tìm hiểu thêm <span class="service-arrow">→</span></a>
+            </div>
+        </div>
+    </section>
+    <!-- HỆ THỐNG TRANG THIẾT BỊ HIỆN ĐẠI SECTION -->
+    <section class="equipment-section">
+        <div class="equipment-container">
+            <div class="equipment-info">
+                <h2>HỆ THỐNG TRANG THIẾT BỊ HIỆN ĐẠI</h2>
+                <ul class="equipment-list">
+                    <li><span class="equipment-icon">✔️</span> Trang thiết bị hiện đại: Đơn vị chẩn đoán hình ảnh tại phòng khám Ngọc Minh sử dụng các máy móc hiện đại từ các hãng GE, Philip và Hitachi, đáp ứng tốt nhất cho nhu cầu chuyên môn lâm sàng.</li>
+                    <li><span class="equipment-icon">✔️</span> Các thiết bị bao gồm siêu âm Doppler màu 2D, 3D, 4D, máy chụp X-quang số hóa, nhũ ảnh, máy đo loãng xương, hệ thống CT 128 và Cộng hưởng từ 1.5 Tesla của GE Hoa Kỳ.</li>
+                    <li><span class="equipment-icon">✔️</span> Đội ngũ chuyên gia, bác sĩ đầu ngành giỏi và tận tâm đến từ các bệnh viện danh tiếng như Bệnh viện Chợ Rẫy và Đại học Y Dược, Viện Tim... Điều này đảm bảo rằng quý khách sẽ được phục vụ bởi những người có kiến thức và kinh nghiệm chuyên sâu.</li>
+                </ul>
+            </div>
+            <div class="equipment-media">
+                <div class="equipment-imgbox">
+                    <img src="https://img.freepik.com/free-photo/mri-scan-machine-hospital_23-2149270082.jpg?w=900" alt="Thiết bị hiện đại">
+                    <a href="#" class="equipment-play">
+                        <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#fff" fill-opacity="0.85"/><polygon points="19,15 36,24 19,33" fill="#2563eb"/></svg>
+                        <span>Xem video</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ĐỐI TÁC CHIẾN LƯỢC SECTION -->
+    <section class="partner-section">
+        <div class="partner-header">
+            <div class="partner-sub">Đối tác chiến lược</div>
+            <h2>Đối tác tin cậy của chúng tôi</h2>
+            <p>Hợp tác cùng các đối tác chiến lược để mang đến dịch vụ y tế chất lượng cao nhất cho bệnh nhân</p>
+        </div>
+        <div class="partner-main">
+            <div class="partner-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Genki_Group_logo.png" alt="Genki Group" />
+            </div>
+            <div class="partner-info">
+                <div class="partner-title">Genki Group</div>
+                <div class="partner-desc">Genki Group là đối tác chiến lược của Phòng khám Đa khoa Ngọc Minh, cung cấp thiết bị y tế hiện đại và hỗ trợ chuyên môn nhằm nâng cao chất lượng dịch vụ khám chữa bệnh.</div>
+                <a href="#" class="partner-more">Tìm hiểu thêm <span class="partner-arrow">→</span></a>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER PHÒNG KHÁM -->
+
+    <!-- KIẾN THỨC SỨC KHỎE SECTION -->
+    <section class="news-section">
+        <div class="news-header">
+            <div class="news-sub">Tin tức mới nhất</div>
+            <h2>Kiến Thức Sức Khỏe</h2>
+            <p>Cập nhật những tin tức mới nhất về y tế, sức khỏe và các chương trình khuyến mãi từ Phòng khám Đa khoa Ngọc Minh.</p>
+        </div>
+        <div class="news-list">
+            <div class="news-card">
+                <img class="news-img" src="https://ngocminh.com.vn/wp-content/uploads/2024/06/suy-gian-tinh-mach.jpg" alt="Sống chung với suy giãn tĩnh mạch">
+                <div class="news-content">
+                    <div class="news-title">SỐNG CHUNG VỚI SUY GIÃN TĨNH MẠCH: BÍ QUYẾT GIẢM...</div>
+                    <div class="news-desc">Suy giãn tĩnh mạch là một tình trạng phổ biến, ảnh hưởng đến hàng triệu người trên khắp thế giới. Dù không đe dọa trực tiếp...</div>
+                    <div class="news-meta">
+                        <span class="news-date">10/6/2025</span>
+                        <a href="#" class="news-more">Đọc tiếp <span class="news-arrow">→</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="news-card">
+                <img class="news-img" src="https://ngocminh.com.vn/wp-content/uploads/2024/06/nhip-cau-y-te.jpg" alt="Chương trình nhịp cầu y tế">
+                <div class="news-content">
+                    <div class="news-title">CHƯƠNG TRÌNH NHỊP CẦU Y TẾ DO PKĐK NGỌC MINH HỢP TÁ...</div>
+                    <div class="news-desc">Chương trình nhịp cầu y tế do PKĐK Ngọc Minh hợp tác với Đài truyền hình Vĩnh Long - Kỳ 1</div>
+                    <div class="news-meta">
+                        <span class="news-date">10/6/2025</span>
+                        <a href="#" class="news-more">Đọc tiếp <span class="news-arrow">→</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="news-card">
+                <img class="news-img" src="https://ngocminh.com.vn/wp-content/uploads/2024/06/covid19-tang-nhe.jpg" alt="Ca COVID-19 tăng nhẹ: Hiểu đúng để không hoang mang">
+                <div class="news-content">
+                    <div class="news-title">CA COVID-19 TĂNG NHẸ: HIỂU ĐÚNG ĐỂ KHÔNG HOANG MANG</div>
+                    <div class="news-desc">CA COVID-19 TĂNG NHẸ: HIỂU ĐÚNG ĐỂ KHÔNG HOANG MANG</div>
+                    <div class="news-meta">
+                        <span class="news-date">9/6/2025</span>
+                        <a href="#" class="news-more">Đọc tiếp <span class="news-arrow">→</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ĐỘI NGŨ BÁC SĨ CHUYÊN MÔN CAO SECTION -->
+    <section class="doctor-section">
+        <div class="doctor-header">
+            <div class="doctor-sub">Bác Sĩ</div>
+            <h2>Đội ngũ bác sĩ chuyên môn cao</h2>
+            <p>Đội ngũ bác sĩ chuyên môn cao, giàu kinh nghiệm</p>
+        </div>
+        <div class="doctor-list">
+            <div class="doctor-card">
+                <img class="doctor-img" src="https://ngocminh.com.vn/wp-content/uploads/2024/06/bs-tran-van-ngoc.jpg" alt="Trần Văn Ngọc">
+                <div class="doctor-name">TRẦN VĂN NGỌC</div>
+                <div class="doctor-specialty">Hô hấp</div>
+                <a href="#" class="doctor-more">Xem thêm <span class="doctor-arrow">→</span></a>
+            </div>
+            <div class="doctor-card">
+                <img class="doctor-img" src="https://ngocminh.com.vn/wp-content/uploads/2024/06/bs-le-tien-dung.jpg" alt="Lê Tiến Dũng">
+                <div class="doctor-name">LÊ TIẾN DŨNG</div>
+                <div class="doctor-specialty">Hô hấp</div>
+                <a href="#" class="doctor-more">Xem thêm <span class="doctor-arrow">→</span></a>
+            </div>
+            <div class="doctor-card">
+                <img class="doctor-img" src="https://ngocminh.com.vn/wp-content/uploads/2024/06/bs-chau-thi-kim-lien.jpg" alt="Châu Thị Kim Liên">
+                <div class="doctor-name">CHÂU THỊ KIM LIÊN</div>
+                <div class="doctor-specialty">Nội Thận</div>
+                <a href="#" class="doctor-more">Xem thêm <span class="doctor-arrow">→</span></a>
+            </div>
+            <div class="doctor-card">
+                <img class="doctor-img" src="https://ngocminh.com.vn/wp-content/uploads/2024/06/bs-cao-xuan-minh.jpg" alt="Cao Xuân Minh">
+                <div class="doctor-name">CAO XUÂN MINH</div>
+                <div class="doctor-specialty">Tim mạch – Lão học</div>
+                <a href="#" class="doctor-more">Xem thêm <span class="doctor-arrow">→</span></a>
+            </div>
+        </div>
+        <div class="doctor-viewall">
+            <a href="#" class="doctor-btn"><svg width="22" height="22" viewBox="0 0 22 22" style="margin-right:8px;"><circle cx="11" cy="11" r="10" fill="none" stroke="#2563eb" stroke-width="2"/><path d="M11 6v4M11 14h0" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="14" r="1" fill="#2563eb"/></svg> Đội Ngũ Bác Sĩ</a>
+        </div>
+    </section>
+    <section class="booking-section">
+        <div class="booking-header">
+            <h2>Đặt Lịch Khám</h2>
+            <p>Đặt lịch hẹn với các bác sĩ chuyên khoa của chúng tôi</p>
+        </div>
+        <div class="booking-main">
+            <div class="booking-info">
+                <h3>Thông Tin Liên Hệ</h3>
+                <div class="booking-info-row"><span class="booking-info-icon">📞</span> <b class="booking-info-label">Hotline:</b><br><span class="booking-info-value">1800 8074</span></div>
+                <div class="booking-info-row"><span class="booking-info-icon">🕒</span> <b class="booking-info-label">Thời gian làm việc:</b><br><span class="booking-info-value">Thứ 2 - Thứ 7: 6h-20h, Chủ nhật: 6h-12h</span></div>
+                <div class="booking-info-row"><span class="booking-info-icon">📍</span> <b class="booking-info-label">Địa chỉ liên hệ:</b><br><span class="booking-info-value">20-22 Lãnh Binh Thăng, P.10, Q.11, TP. HCM</span></div>
+                <div class="booking-info-row">Cần hỗ trợ ngay? Liên hệ trực tiếp với chúng tôi:</div>
+            </div>
+            <form class="booking-form">
+                <h3>Đặt Lịch Khám</h3>
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label>Họ và tên</label>
+                        <input type="text" placeholder="Nguyễn Văn A" required>
+                    </div>
+                    <div class="booking-form-group">
+                        <label>Số điện thoại</label>
+                        <input type="tel" placeholder="0912345678" required>
+                    </div>
+                </div>
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label>Ngày sinh</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="booking-form-group">
+                        <label>Địa chỉ</label>
+                        <input type="text" placeholder="123 Đường ABC, Quận XYZ">
+                    </div>
+                </div>
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label>Chuyên Khoa</label>
+                        <select required>
+                            <option value="">Vui lòng chọn chuyên khoa</option>
+                            <option>Hô hấp</option>
+                            <option>Tim mạch – Lão học</option>
+                            <option>Tai Mũi Họng</option>
+                            <option>Mắt – Mắt kính</option>
+                            <option>Răng Hàm Mặt</option>
+                            <option>Sản – Phụ khoa</option>
+                            <option>Nội tiết – Tiểu đường</option>
+                            <option>Da Liễu – Thẩm Mỹ Da</option>
+                        </select>
+                    </div>
+                    <div class="booking-form-group">
+                        <label>Tên Bác Sĩ</label>
+                        <select>
+                            <option value="">Vui lòng chọn bác sĩ</option>
+                            <option>Trần Văn Ngọc</option>
+                            <option>Lê Tiến Dũng</option>
+                            <option>Châu Thị Kim Liên</option>
+                            <option>Cao Xuân Minh</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label>Ngày hẹn</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="booking-form-group">
+                        <label>Giờ hẹn</label>
+                        <input type="time" required>
+                    </div>
+                </div>
+                <div class="booking-form-row">
+                    <div class="booking-form-group" style="width:100%">
+                        <label>Ghi chú (nếu có)</label>
+                        <textarea rows="3" placeholder="Triệu chứng, yêu cầu đặc biệt, hoặc thông tin thêm..."></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="booking-btn"><svg width="22" height="22" viewBox="0 0 22 22" style="margin-right:8px;"><circle cx="11" cy="11" r="10" fill="none" stroke="#fff" stroke-width="2"/><rect x="10" y="6" width="2" height="7" rx="1" fill="#fff"/><rect x="10" y="14" width="2" height="2" rx="1" fill="#fff"/></svg> Xác nhận</button>
+                <div class="booking-note">Bằng cách gửi biểu mẫu này, bạn đồng ý với chính sách bảo mật của chúng tôi.</div>
+            </form>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="footer-col footer-logo">
+                <div class="footer-logo-img">
+                    <svg width="56" height="56" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#eaf1ff"/><path d="M24 10a8 8 0 0 1 8 8c0 4.4-8 12-8 12s-8-7.6-8-12a8 8 0 0 1 8-8z" fill="#3578e5"/><circle cx="24" cy="18" r="4" fill="#fff"/></svg>
+                </div>
+                <div class="footer-clinic-name">Thiên Phúc<br><small>PHÒNG KHÁM ĐA KHOA</small></div>
+                <div class="footer-contact">
+                    <div><b>Địa chỉ:</b> Quận Ninh Kiều, Phường Hưng Lợi, TP. Cần Thơ</div>
+                    <div><b>Hotline:</b> <a href="tel:18008074">1800 8074</a></div>
+                    <div><b>Email:</b> <a href="mailto:info@thienphuc.com">info@thienphuc.com</a></div>
+                </div>
+            </div>
+            <div class="footer-col">
+                <div class="footer-title">Thời gian làm việc</div>
+                <ul class="footer-list">
+                    <li><b>Sáng:</b> 06:00 - 11:30</li>
+                    <li><b>Chiều:</b> 13:30 - 17:00</li>
+                    <li><b>Tối:</b> 17:00 - 20:00</li>
+                    <li><b>Chủ nhật:</b> 06:00 - 12:00</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-title">Liên kết nhanh</div>
+                <ul class="footer-list">
+                    <li><a href="#">Bản đồ phòng khám</a></li>
+                    <li><a href="#">Hướng dẫn đặt lịch</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Điều khoản sử dụng</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-title">Kết nối với chúng tôi</div>
+                <div class="footer-socials">
+                    <a href="#" title="Facebook"><svg width="28" height="28" viewBox="0 0 32 32"><circle fill="#1877f3" cx="16" cy="16" r="16"/><path fill="#fff" d="M20.5 16H18v8h-4v-8h-2v-3h2v-2c0-2.2 1.3-3.5 3.3-3.5.9 0 1.8.1 1.8.1v2h-1c-1 0-1.2.5-1.2 1.1v1.3h2.5l-.3 3z"/></svg></a>
+                    <a href="#" title="Zalo"><svg width="28" height="28" viewBox="0 0 32 32"><circle fill="#0180c7" cx="16" cy="16" r="16"/><text x="8" y="22" font-size="12" fill="#fff" font-family="Arial">Zalo</text></svg></a>
+                    <a href="#" title="YouTube"><svg width="28" height="28" viewBox="0 0 32 32"><circle fill="#ff0000" cx="16" cy="16" r="16"/><polygon fill="#fff" points="13,11 23,16 13,21"/></svg></a>
+                    <a href="#" title="Phone"><svg width="28" height="28" viewBox="0 0 32 32"><circle fill="#ff6600" cx="16" cy="16" r="16"/><path fill="#fff" d="M22.6 20.9l-2.2-2.2c-.4-.4-1-.4-1.4 0l-1.1 1.1c-1.7-.9-3.1-2.3-4-4l1.1-1.1c.4-.4.4-1 0-1.4l-2.2-2.2c-.4-.4-1-.4-1.4 0l-.8.8c-.7.7-1 1.7-.7 2.7 1.2 3.5 4.1 6.4 7.6 7.6 1 .3 2-.1 2.7-.7l.8-.8c.4-.4.4-1 0-1.4z"/></svg></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-cert">
+                <img src="https://img.icons8.com/color/48/000000/dmca.png" alt="DMCA" height="32">
+                <img src="https://cdn.gov.vn/images/bocongthuong.png" alt="Bộ Công Thương" height="32">
+            </div>
+            <div class="footer-copyright">
+                Copyright © 2024 Phòng Khám Đa Khoa Thiên Phúc. All rights reserved.<br>
+                Thông tin trên website chỉ mang tính tham khảo, không thay thế cho tư vấn y tế chuyên môn.
+            </div>
+        </div>
+    </footer>
+    <!-- ĐẶT LỊCH KHÁM SECTION -->
+    
+</body>
+</html>
